@@ -1,0 +1,23 @@
+## This target creates an infinite symlink expansion even though the
+## recursive path expansion is excluded.
+##
+## (Comment out this target to make things work.)
+filegroup(
+    name = "broken",
+    srcs = glob(
+        include = ["**"],
+        exclude = [
+            "foo/bar",
+            "foo/bar*",
+            "foo/bar/**",
+        ],
+    ),
+)
+
+filegroup(
+    name = "working",
+    srcs = glob(
+        include = ["foo/payload.txt"],
+        exclude = [],
+    ),
+)
